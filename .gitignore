@@ -12,3 +12,5 @@ scratch.md
 notes-personal.md
 Docker/
 Docker/*
+.cache/
+.claude/

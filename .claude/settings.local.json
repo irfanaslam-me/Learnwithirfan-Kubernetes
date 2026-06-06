@@ -5,7 +5,8 @@
       "Bash(git add *)",
       "Bash(git commit -m ' *)",
       "Bash(ls \"c:\\\\Users\\\\weed\\\\Desktop\\\\\" 2>/dev/null || dir \"c:\\\\Users\\\\weed\\\\Desktop\\\\\")",
-      "Read(//c/Users/weed/Desktop\" 2>/dev/**)"
+      "Read(//c/Users/weed/Desktop\" 2>/dev/**)",
+      "Bash(git push *)"
     ]
   }
 }
