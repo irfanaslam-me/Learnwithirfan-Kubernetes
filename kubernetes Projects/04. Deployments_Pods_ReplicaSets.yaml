@@ -1,0 +1,101 @@
+# =============================================================================
+# 04. Pods & Deployments — Hands-on Practice
+# =============================================================================
+# How to apply this file:
+#   kubectl apply -f "04. Deployments_Pods_ReplicaSets.yaml"
+#
+# How to delete everything in this file:
+#   kubectl delete -f "04. Deployments_Pods_ReplicaSets.yaml"
+# =============================================================================
+
+
+# -----------------------------------------------------------------------------
+# 1. BARE POD
+# -----------------------------------------------------------------------------
+# A Pod you create directly.
+# If this Pod crashes, Kubernetes will NOT restart it — it is just gone.
+# Use a Deployment (example 2) when you need self-healing.
+#
+# Try these commands one by one:
+#   kubectl apply -f "04. Deployments_Pods_ReplicaSets.yaml"
+#   kubectl get pods
+#   kubectl describe pod pizza-pod
+#   kubectl logs pizza-pod
+#   kubectl delete pod pizza-pod
+#   kubectl get pods                 <- pod is gone and NOT recreated
+# -----------------------------------------------------------------------------
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pizza-pod
+  labels:
+    app: pizza
+    department: pizza
+spec:
+  containers:
+  - name: chef
+    image: nginx:latest
+    ports:
+    - containerPort: 80
+
+
+---
+
+
+# -----------------------------------------------------------------------------
+# 2. DEPLOYMENT
+# -----------------------------------------------------------------------------
+# A Deployment keeps your Pods running and restarts them if they crash.
+# It also lets you scale up/down and update the image.
+#
+# You can create it two ways:
+#
+# WAY 1 — imperative (quick, no YAML needed):
+#   kubectl create deployment pizza-deployment --image=nginx:latest
+#
+# WAY 2 — declarative (using this YAML — the production way):
+#   kubectl apply -f "04. Deployments_Pods_ReplicaSets.yaml"
+#
+# Try these commands after applying:
+#   kubectl get deployments
+#   kubectl get pods
+#   kubectl get pods -l app=pizza              <- filter by label
+#   kubectl get pods --selector=department=pizza  <- same thing, longer form
+#   kubectl describe pod <paste-pod-name-here>
+#   kubectl logs <paste-pod-name-here>
+#
+# Scale up:
+#   kubectl scale deployment pizza-deployment --replicas=3
+#   kubectl get pods                           <- now 3 pods
+#
+# Scale down:
+#   kubectl scale deployment pizza-deployment --replicas=2
+#   kubectl get pods                           <- back to 2 pods
+#
+# Delete:
+#   kubectl delete deployment pizza-deployment
+#   kubectl get pods                           <- all pods are gone
+# -----------------------------------------------------------------------------
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pizza-deployment
+  labels:
+    app: pizza
+    department: pizza
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: pizza                # find and own Pods that have this label
+  template:
+    metadata:
+      labels:
+        app: pizza              # every Pod gets this label — must match selector
+        department: pizza
+    spec:
+      containers:
+      - name: chef
+        image: nginx:latest
+        ports:
+        - containerPort: 80
