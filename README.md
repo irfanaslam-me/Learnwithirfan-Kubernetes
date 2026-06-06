@@ -8,7 +8,7 @@ A hands-on, structured guide to learning Kubernetes from zero.
 |------|-------|------|
 | 1 | What is Kubernetes & Architecture | [01. Overview.md](01.%20Overview.md) |
 | 2 | Install kubectl & Minikube (Windows) | [02. how to install kubernetes.md](02.%20how%20to%20install%20kubernetes.md) |
-| 3 | Core Concepts & Commands Reference | [kube.md](kube.md) |
+| 3 | Core Concepts & Commands Reference | [03. Core Concept k8s.md](03.%20Core%20Concept%20k8s.md) |
 
 ## What You Will Learn
 
