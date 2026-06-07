@@ -30,7 +30,7 @@ metadata:
   name: pizza-pod
   labels:
     app: pizza
-    department: pizza
+
 spec:
   containers:
   - name: chef
