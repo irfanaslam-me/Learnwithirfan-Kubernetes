@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: welcome-container
-        image: nginx:latest
+        image: kicbase/echo-server:latest
         ports:
         - containerPort: 8080
